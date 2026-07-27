@@ -13,7 +13,7 @@
 
 Nhóm phân tích quy trình Chăm sóc khách hàng và Vận hành giao hàng tại một sàn thương mại điện tử hoặc nhà bán hàng lớn. Candidate cuối cùng được thu hẹp vào việc xử lý ticket về **đơn hàng bị delay hoặc có dấu hiệu thất lạc**, không bao gồm mọi câu hỏi “đơn hàng của tôi đang ở đâu” (WISMO) thông thường.
 
-Các số liệu trong báo cáo là baseline sơ bộ được các thành viên nêu và challenge trong buổi pitching. Do mọi người từng quan sát các loại ticket có độ phức tạp khác nhau, nhóm thống nhất phải đo lại trên cùng một tập ticket trước khi triển khai.
+Các số liệu trong báo cáo là baseline sơ bộ được các thành viên nêu và challenge trong buổi pitching. Trong phạm vi bài mô phỏng, chúng được dùng để so sánh workflow chứ không được xem là số liệu vận hành đã xác nhận.
 
 ---
 
@@ -76,7 +76,7 @@ Thang điểm 1–5, dùng để buộc nhóm giải thích lựa chọn, không
 - Nhiều pitch độc lập trong buổi họp hội tụ vào cùng pain tra cứu trạng thái và xử lý giao trễ.
 - Có actor cụ thể là CS Agent và handoff rõ sang Shipping/carrier.
 - Bottleneck nằm ở một chuỗi bước có thể vẽ và đo thời gian.
-- Có thể thử No AI, Rule, Workflow và Agent trên cùng một tập ticket.
+- Có thể dùng cùng một bộ scenario trong buổi role-play để so sánh No AI, Rule, Workflow và Agent.
 - Có thể pilot bằng dữ liệu đã ẩn thông tin cá nhân mà không kết nối hệ thống thật.
 
 **Vì sao không chọn các candidate còn lại:**
@@ -87,16 +87,16 @@ Thang điểm 1–5, dùng để buộc nhóm giải thích lựa chọn, không
 
 ## Quick validation
 
-Ngay sau khi chọn candidate, nhóm thực hiện quick validation trong phạm vi buổi làm việc. Một thành viên đóng vai người hỏi, các thành viên có trải nghiệm với CS/shipping lần lượt kể lại tình huống gần nhất, workflow đã đi qua, thời gian ước lượng và bước gây khó chịu nhất. Sau đó, nhóm walkthrough các tình huống WISMO thường, giao trễ và nghi thất lạc để kiểm tra xem chúng có thật sự là cùng một problem hay không.
+Ngay sau khi chọn candidate, nhóm thực hiện quick validation theo hình thức **scenario walkthrough và role-play**. Nhóm chuẩn bị ba scenario ngắn: WISMO bình thường, đơn quá SLA và đơn mất checkpoint. Trong mỗi vòng, bốn thành viên lần lượt đóng vai khách hàng, CS Agent, Shipping Coordinator và người quan sát. Người quan sát ghi lại số bước, điểm phải hỏi lại, chỗ cần handoff và rủi ro nếu AI trả lời sai.
 
-Kết quả này mới là tín hiệu định tính của buổi họp, chưa thay thế phỏng vấn người dùng hoặc dữ liệu vận hành độc lập.
+Sau mỗi vòng, từng thành viên trả lời ba câu hỏi: pain nằm ở bước nào, Rule có đủ không và bước nào bắt buộc con người quyết định. Cách validation này phù hợp với một bài mô phỏng và tạo điều kiện để mọi thành viên pitch, challenge và thay đổi quan điểm. Kết quả chỉ là tín hiệu định tính của buổi thảo luận, không đại diện cho dữ liệu vận hành thật.
 
 | Nguồn | Số người / số mẫu | Tín hiệu xác nhận | Tín hiệu phản bác | Nhóm sửa problem thế nào |
 |---|---:|---|---|---|
-| Quick interview trong buổi họp | 4 người | Các tình huống delay phức tạp đều cần tra WMS, carrier và policy/SLA trước khi trả lời | Không phải mọi câu hỏi WISMO đều tốn nhiều thời gian; case bình thường có thể xử lý bằng link tracking hoặc template | Thu hẹp actor moment: chỉ xử lý ticket delay/quá SLA hoặc có dấu hiệu thất lạc |
-| Workflow walkthrough | 3 tình huống: bình thường, quá SLA, mất checkpoint | Case quá SLA và mất checkpoint tạo nhiều bước tra cứu/handoff hơn rõ rệt | Tracking không phải lúc nào cũng ghi nguyên nhân thật; không thể buộc AI kết luận | AI chỉ tóm tắt dữ kiện và nêu nguyên nhân khả nghi có dẫn nguồn; CS quyết định |
-| Đối chiếu ước lượng thời gian | 4 ước lượng trong buổi pitch | Phần tra cứu và đối chiếu chiếm nhiều thời gian nhất ở case phức tạp | Khoảng 3–15 phút quá rộng do mọi người đang nói về các loại ticket khác nhau | Baseline 12–15 phút chỉ là giả thuyết cho case phức tạp; pilot phải đo lại median trên cùng định nghĩa |
-| Ticket/log vận hành | Chưa có | Chưa xác nhận bằng dữ liệu độc lập | Chưa có baseline chính thức cho AHT, reopen rate và CSAT | Đưa việc lấy 30–50 ticket đã ẩn PII vào pilot bắt buộc |
+| Scenario walkthrough | 3 scenario | Case quá SLA và mất checkpoint có nhiều bước tra cứu/handoff hơn WISMO thường | WISMO bình thường có thể giải bằng tracking link hoặc template | Loại WISMO bình thường khỏi scope chính |
+| Role-play luân phiên | 4 thành viên, 3 vòng | Vai CS phải nối WMS, carrier và SLA trước khi biết nên trả lời hay chuyển Shipping | Vai Shipping chỉ có thể xác nhận dữ kiện có trong nguồn; không phải lúc nào cũng biết nguyên nhân | AI chỉ tóm tắt dữ kiện và nêu mức không chắc chắn; CS quyết định |
+| Peer challenge | 4 thành viên | Nhóm đồng thuận pain chính là nối dữ liệu và chọn hướng xử lý, không chỉ là viết câu trả lời | Baseline thời gian khác nhau vì mỗi người hình dung case khác nhau | Giữ 12–15 phút là giả định mô phỏng, không trình bày như số liệu thật |
+| Dot vote cuối buổi | 4 phiếu | Workflow có AI hỗ trợ được giữ lại vì cân bằng tốc độ và kiểm soát | Không ai đề xuất cho AI tự gửi hoặc tự hoàn tiền sau khi xét rủi ro | Chọn Workflow có human review; loại Agent tự động khỏi prototype |
 
 ### Insight sau validation
 
@@ -106,15 +106,13 @@ Pain tập trung ở ticket đã quá SLA, mất checkpoint hoặc có dữ li�
 khi CS phải nối nhiều nguồn trước khi biết nên trả lời hay escalate.
 ```
 
-### Câu hỏi validation tiếp theo
+### Câu hỏi dùng để challenge trong role-play
 
-Nhóm cần hỏi 2–3 CS Agent hoặc kiểm tra log:
-
-1. Trong 50 ticket gần nhất, bao nhiêu ticket là WISMO thường và bao nhiêu ticket cần điều tra delay/thất lạc?
-2. Thời gian từng bước: tra WMS, tra carrier, đối chiếu SLA, viết phản hồi là bao nhiêu?
-3. Dữ liệu nào thường thiếu hoặc mâu thuẫn?
-4. Có bao nhiêu ticket bị mở lại vì trả lời chưa đúng hoặc chưa đủ?
-5. CSAT của nhóm ticket này đang ở mức nào?
+1. Dữ kiện nào trong scenario được xem là sự thật đã xác nhận?
+2. Nếu bỏ AI, Rule hoặc template giải được bao nhiêu bước?
+3. Nếu AI nêu sai nguyên nhân, ai phát hiện và sửa?
+4. Khi nào CS được trả lời và khi nào bắt buộc chuyển Shipping?
+5. Future workflow có giảm thao tác nhưng vẫn giữ đủ human control không?
 
 ## Research giải pháp hiện có
 
@@ -183,12 +181,12 @@ Fallback:
 
 | Metric | Trước | Sau kỳ vọng | Cách đo |
 |---|---:|---:|---|
-| Tổng thời gian/ticket | 12–15 phút (cần đo lại) | Dưới 6 phút | Timestamp trên CRM hoặc time study |
-| Số hệ thống CS mở thủ công | 2–4 | 1 giao diện | Quan sát pilot |
+| Tổng thời gian/ticket | Giả định 12–15 phút | Kỳ vọng dưới 6 phút | So sánh thời gian giữa các vòng role-play |
+| Số hệ thống CS mở thủ công | Giả định 2–4 | 1 giao diện | Đếm bước trên scenario walkthrough |
 | Số bước thủ công chính | 6 | 2 | Đếm trên workflow |
-| Reopen rate | Chưa có baseline | Không tăng | Ticket mở lại trong 7 ngày |
-| CSAT | Chưa có baseline riêng | Không giảm | CSAT của ticket pilot |
-| Lỗi factual/policy | Chưa có baseline | 0 lỗi nghiêm trọng | Reviewer đối chiếu tracking và policy |
+| Mức rõ ràng của phản hồi | Chưa có baseline | 4/4 thành viên hiểu cùng một action | Peer review sau mỗi vòng |
+| Mức đồng thuận về boundary | Chưa có baseline | 4/4 xác định đúng việc AI không được làm | Câu hỏi nhanh cuối role-play |
+| Lỗi factual/policy | Chưa có baseline | 0 lỗi nghiêm trọng | Người quan sát đối chiếu output với scenario |
 
 ## Problem Statement v0
 
@@ -203,7 +201,7 @@ Fallback:
 
 ### Lỗ hổng của v0
 
-- Baseline hiện là ước lượng được nêu trong buổi pitching, chưa đo trên cùng một tập ticket.
+- Baseline hiện là ước lượng dùng cho mô phỏng, không phải số liệu vận hành thật.
 - “Nguyên nhân delay” không phải lúc nào cũng có trong tracking.
 - Chưa có baseline riêng về reopen rate, CSAT và lỗi factual.
 - Data access carrier là điều kiện tiên quyết, không phải việc AI có thể tự giải quyết.
@@ -250,8 +248,8 @@ Kết luận: bài toán phù hợp với **Workflow có AI hỗ trợ**, chưa 
 | Câu hỏi | Trạng thái | Ghi chú |
 |---|---|---|
 | Actor và workflow đã rõ chưa? | Yes | CS Tier 1, Shipping/carrier handoff rõ |
-| Baseline và success metric đã đo được chưa? | Not Yet | Có estimate nhưng chưa đo cùng phạm vi ticket |
-| Có data/input đủ dùng chưa? | Not Yet | Cần 30–50 ticket ẩn PII và tracking snapshot |
+| Baseline và success metric đã đo được chưa? | Not Yet | Có estimate mô phỏng nhưng chưa có baseline vận hành |
+| Có input đủ cho bài mô phỏng chưa? | Yes | Ba scenario đủ để walkthrough và challenge workflow |
 | Nếu AI sai, hậu quả có chấp nhận được không? | Yes, với boundary | Chỉ draft; CS review; không tự refund/gửi |
 | Có người review/owner vận hành không? | Yes | CS Agent và Team Lead |
 | Có cách non-AI đơn giản hơn không? | Yes | Dashboard/API, SLA rule và template phải được thử cùng pilot |
@@ -259,36 +257,36 @@ Kết luận: bài toán phù hợp với **Workflow có AI hỗ trợ**, chưa 
 ### Decision
 
 ```text
-Go với pilot nhỏ, chưa Go production.
+Go với prototype thảo luận mô phỏng; Not Yet cho pilot vận hành và production.
 ```
 
-### Pilot nhỏ nhất
+### Prototype nhỏ nhất
 
-1. Lấy 30–50 ticket delay/thất lạc đã ẩn tên, số điện thoại, địa chỉ và thông tin nhạy cảm.
-2. Đo AHT, reopen rate và lỗi trên workflow hiện tại.
-3. Chuẩn hóa input gồm WMS snapshot, carrier checkpoints, SLA và policy liên quan.
-4. Chạy ba phương án trên cùng tập dữ liệu: template/rule; workflow có AI; xử lý thủ công.
-5. CS Agent review mọi output; Team Lead chấm factual accuracy, policy compliance và tone.
-6. Chỉ tích hợp API thật sau khi pilot offline đạt tiêu chí.
+1. Viết ba scenario ngắn: WISMO bình thường, quá SLA và mất checkpoint.
+2. Chia bốn vai: khách hàng, CS Agent, Shipping Coordinator và người quan sát; đổi vai sau mỗi vòng.
+3. Vòng một xử lý theo workflow hiện tại; vòng hai dùng Rule/template; vòng ba dùng Workflow có AI draft.
+4. Mỗi người ghi bottleneck, số bước, điểm chưa rõ và rủi ro trong từng vòng.
+5. Cả nhóm peer review output, challenge nguyên nhân/action và thống nhất boundary.
+6. Chốt lại Problem Statement v1 và quyết định Go/Not Yet dựa trên thảo luận.
 
 ### Tiêu chí Go tiếp
 
-- Median AHT dưới 6 phút và giảm ít nhất 40% so với baseline đo lại.
-- 100% trạng thái và checkpoint quan trọng trong draft truy ngược được về input.
+- Workflow tương lai giảm rõ số bước tra cứu/lặp lại so với current workflow trong cả ba scenario.
+- Mọi trạng thái và checkpoint trong draft đều truy ngược được về scenario.
 - Không có lỗi nghiêm trọng như hứa sai ngày, kết luận thất lạc sai hoặc đề xuất sai policy.
-- Reopen rate không tăng và CSAT không giảm so với baseline.
-- Workflow có AI tốt hơn phương án dashboard + rule/template ở ít nhất một metric chính.
+- Cả bốn thành viên giải thích thống nhất khi nào Rule đủ và khi nào cần AI hỗ trợ.
+- Cả bốn thành viên xác định đúng human boundary và fallback.
 
 ### Exit / rollback
 
-- Nếu API hoặc tracking không đáng tin cậy, dừng AI và ưu tiên sửa data integration.
-- Nếu AI draft phải viết lại trên 70% trong hai vòng pilot, hạ xuống dashboard + rule + template.
+- Nếu scenario cho thấy Rule/template đã đủ, hạ giải pháp xuống Rule và không thêm AI.
+- Nếu AI draft thường xuyên thêm dữ kiện không có trong scenario, bỏ draft và quay về template.
 - Nếu xuất hiện lỗi factual/policy nghiêm trọng, tắt AI draft và quay về workflow thủ công.
 - Không mở quyền tự gửi, tự refund hoặc tự kết luận thất lạc trong phạm vi này.
 
 ### Lý do quyết định
 
-Problem, actor và workflow đã đủ rõ để thử nghiệm; pattern giải pháp hiện có cũng xác nhận API có thể gom tracking và AI có thể hỗ trợ triage/tóm tắt. Tuy nhiên, baseline và chất lượng dữ liệu chưa được đo thống nhất. Vì vậy, quyết định hợp lý là Go với pilot có human review, không triển khai Agent tự động hoặc production ngay.
+Problem, actor và workflow đã đủ rõ để role-play và phản biện. Research cũng cho thấy API có thể gom tracking và AI có thể hỗ trợ triage/tóm tắt. Tuy nhiên, đây là bài mô phỏng, không có baseline vận hành. Vì vậy, quyết định hợp lý là Go với prototype thảo luận có human review và Not Yet cho triển khai thực tế.
 
 
 
